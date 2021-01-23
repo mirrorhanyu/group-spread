@@ -26,3 +26,14 @@ jobs:
         with:
           push: true
           tags: callmehan/group-spread:${{ github.sha }}
+      - name: Update Container
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+          directory: deployment/
+          playbook: main.yml
+          requirements: requirements.yml
+          key: ${{secrets.REMOTE_SERVER_PRIVATE_KEY}}
+          options: |
+            --inventory hosts
+            --extra-vars IMAGE_TAG=${{ github.sha }}
+            --verbose

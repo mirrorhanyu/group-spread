@@ -1,0 +1,11 @@
+---
+- hosts: all
+  tasks:
+    - name: Update Container
+      community.general.docker_container:
+        name: group-spread-container
+        image: callmehan/group-spread:{{ IMAGE_TAG }}
+        recreate: yes
+        ports:
+          - "8080:80"
+
